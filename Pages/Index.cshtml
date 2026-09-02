@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+
+<div class="resume">
+<h1>Resume</h1>
+
+<label for="name">Input name</label>
+<input id="name" type="text" placeholder="Your Name">
+
+<br></br>
+
+<label for="age">Input age</label>
+<input id="age" type="text" placeholder="Your Age">
+
+
+<br></br>
+
+<label for="city">Input city</label>
+<input id="city" type="text" placeholder="Your City">
+
+<br></br>
+
+<label for="professional">professional</label>
+
+<select id="professional">
+    <option value="Developer">Developer</option>
+    <option value="Designer">Designer</option>
+    <option value="Manager">Manager</option>
+</select>
+
+<button onclick="sentData()">Sent data</button>
+
+<p id="result"></p>
+</div>
