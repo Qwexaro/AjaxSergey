@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using AjaxSergey.Extensions;
 
 namespace AjaxSergey.Pages;
 
@@ -19,7 +20,17 @@ public class IndexModel : PageModel
     
     public required string Message { get; set; }
     
+    [BindProperty]
+    public required string Course { get; set; }
+    
+    [BindProperty]
+    public required DateTime DateBirTime { get; set; }
+
+    [BindProperty] 
+    public required List<string> Tech { get; set; }
+    
     public void OnGet() {  }
 
-    public void OnPost() => Message = $"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality}";
+    public void OnPost() => 
+        Message = $"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality}\nCourse:{Course},\nDateBirTime:{DateBirTime},\nTech:{Tech.ForEach()}";
 }
