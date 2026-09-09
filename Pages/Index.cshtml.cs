@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AjaxSergey.Extensions;
+using AjaxSergey.Validation;
 
 namespace AjaxSergey.Pages;
 
@@ -24,6 +26,9 @@ public class IndexModel : PageModel
     public required string Course { get; set; }
     
     [BindProperty]
+    [Required(ErrorMessage = "Пожалуйста, укажите дату рождения")]
+    [BirthDate(maxAge: 120)]
+    [DataType(DataType.Date)]
     public required DateTime DateBirTime { get; set; }
 
     [BindProperty] 

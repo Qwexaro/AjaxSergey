@@ -30,7 +30,7 @@
             </div>
             <div>
                 <label for="courses">Курс: </label>
-                <select name="Course" id="courses">
+                <select name="Course" id="courses" type="courses">
                     <option value="1 курс">1 курс</option>
                     <option value="2 курс">2 курс</option>
                     <option value="3 курс">3 курс</option>
@@ -58,18 +58,19 @@
                 </div>
             </div>
         </div>
-        
         <button class="form-button" type="submit">
             Send
         </button>
     </form>
     
-    
-    <div class="result">
-        <h3>Данные анкеты</h3>
-            
-        <p style="white-space: pre-line">
-            @Model.Message
-        </p>
-    </div>
+    @if (Model.Message is not null)
+    {
+        <div class="result">
+            <h3>Данные анкеты</h3>
+
+            <p style="white-space: pre-line">
+                @Model.Message
+            </p>
+        </div>
+    }
 </div>
