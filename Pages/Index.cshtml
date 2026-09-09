@@ -1,34 +1,56 @@
 ﻿@page
 @model IndexModel
 
-<div class="resume">
-<h1>Resume</h1>
+<div class="form-container">
+    <h1>Анкета студентов</h1>
 
-<label for="name">Input name</label>
-<input id="name" type="text" placeholder="Your Name">
+    <form method="post">
 
-<br></br>
+        <div class="form-group">
+            <label>Имя фамилия:</label>
+            <input type="text" name="Name" placeholder="Введите имя"/>
+        </div>
 
-<label for="age">Input age</label>
-<input id="age" type="text" placeholder="Your Age">
+        <div class="form-group">
+            <label>Номер телефона:</label>
+            <input type="tel" name="Phone" placeholder="+7" required="required"/>
+        </div>
 
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="Email" placeholder="email"/>
+        </div>
 
-<br></br>
+        <div class="form-group">
+            <label>Специальность:</label>
 
-<label for="city">Input city</label>
-<input id="city" type="text" placeholder="Your City">
+            <div class="speciality">
+                <input type="radio" name="Speciality" value="Программирование" id="dev"/>
+                <label for="dev">Программирование</label>
 
-<br></br>
+                <br>
+                
+                <input type="radio" name="Speciality" value="Дизайнер" id="design"/>
+                <label for="design">Дизайн</label>
 
-<label for="professional">professional</label>
-
-<select id="professional">
-    <option value="Developer">Developer</option>
-    <option value="Designer">Designer</option>
-    <option value="Manager">Manager</option>
-</select>
-
-<button onclick="sentData()">Sent data</button>
-
-<p id="result"></p>
+                <br>
+                
+                <input type="radio" name="Speciality" value="Маркетолог" id="marketing"/>
+                <label for="marketing">Маркетинг</label>
+            </div>
+        </div>
+        
+        <button class="form-button" type="submit">
+            Send
+        </button>
+    </form>
+    
+    
+    <div class="result">
+        <h3>Данные анкеты</h3>
+            
+        <p style="white-space: pre-line">
+            @Model.Message
+        </p>
+    </div>
 </div>

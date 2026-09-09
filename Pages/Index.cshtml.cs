@@ -5,7 +5,21 @@ namespace AjaxSergey.Pages;
 
 public class IndexModel : PageModel
 {
-    public JsonResult OnGetHello(string name, int age, string city, string professional) => new JsonResult(
-        new {message = $"Hello, {name}! From {city}, with age: {age}, you a {professional}. Nice to meet you!"}
-    );
+    [BindProperty]
+    public required string Name { get; set; }
+    
+    [BindProperty]
+    public required string Phone { get; set; }
+    
+    [BindProperty]
+    public required string Email { get; set; }
+    
+    [BindProperty]
+    public required string Speciality { get; set; }
+    
+    public required string Message { get; set; }
+    
+    public void OnGet() {  }
+
+    public void OnPost() => Message = $"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality}";
 }
