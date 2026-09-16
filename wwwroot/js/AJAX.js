@@ -10,7 +10,7 @@ form.addEventListener('submit', async (event) => {
         console.error("Критическая ошибка: Токен защиты не найден на форме!");
         return;
     }
-
+    
     const response = await fetch("", {
         method: 'POST',
         headers: {
@@ -20,5 +20,10 @@ form.addEventListener('submit', async (event) => {
     });
 
     const resultDiv = document.querySelector('#result');
+    
+    // for imitation server work
+    await new Promise(resolve => setTimeout(resolve, 1300));
+    
     resultDiv.textContent = await response.text();
 });
+
