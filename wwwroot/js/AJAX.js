@@ -14,7 +14,7 @@ form.addEventListener('submit', async (event) => {
 
     setTimeout(() => {
         console.info("sending data. . .");
-    }, 1300);
+    }, 2300);
     
     button.textContent = "Sending...";
 
