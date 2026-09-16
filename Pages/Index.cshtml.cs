@@ -20,7 +20,14 @@ public class IndexModel : PageModel
     [BindProperty]
     public required string Speciality { get; set; }
     
-    public required string Message { get; set; }
+    [BindProperty]
+    public required string LessonFormat { get; set; }
+    
+    [BindProperty]
+    public string? Message { get; set; }
+    
+    [BindProperty]
+    public required string City { get; set; }
     
     [BindProperty]
     public required string Course { get; set; }
@@ -35,7 +42,7 @@ public class IndexModel : PageModel
     public required List<string> Tech { get; set; }
     
     public void OnGet() {  }
-
-    public void OnPost() => 
-        Message = $"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality}\nCourse:{Course},\nDateBirTime:{DateBirTime},\nTech:{Tech.ForEach()}";
+    
+    public IActionResult OnPost() => 
+        Content($"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality},\nCourse:{Course},\nDateBirTime:{DateBirTime},\nTech:{Tech.WriteList()}\nLessonFormat:{LessonFormat}\n,City:{City},\n\nMessage:{Message}");
 }
