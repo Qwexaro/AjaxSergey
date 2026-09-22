@@ -3,28 +3,29 @@
 
 <div class="form-container">
     <h1>Анкета студентов</h1>
-    <form method="post">
+    
+    <form method="post" id="studentForm">
         @Html.AntiForgeryToken()
         
         <div class="form-group">
             <label for="student-name">Имя фамилия:</label>
-            <input type="text" name="Name" id="student-name" placeholder="Введите имя" autocomplete="name"/>
+            <input type="text" name="Name" id="student-name" placeholder="Введите имя" autocomplete="name" required/>
         </div>
         
         <div class="form-group">
             <label for="student-phone">Номер телефона:</label>
-            <input type="tel" name="Phone" id="student-phone" placeholder="+7" required="required" autocomplete="tel"/>
+            <input type="tel" name="Phone" id="student-phone" placeholder="+7" required autocomplete="tel"/>
         </div>
         
         <div class="form-group">
             <label for="student-email">Email:</label>
-            <input type="email" name="Email" id="student-email" placeholder="email" autocomplete="email"/>
+            <input type="email" name="Email" id="student-email" placeholder="email" autocomplete="email" required/>
         </div>
         
         <div class="form-group">
             <label>Специальность:</label>
             <div class="speciality">
-                <input type="radio" name="Speciality" value="Программирование" id="dev"/>
+                <input type="radio" name="Speciality" value="Программирование" id="dev" checked/>
                 <label for="dev">Программирование</label>
                 <br>
                 <input type="radio" name="Speciality" value="Дизайнер" id="design"/>
@@ -34,7 +35,7 @@
                 <label for="marketing">Маркетинг</label>
             </div>
             
-            <div>
+            <div class="form-group">
                 <label for="courses">Курс: </label>
                 <select name="Course" id="courses">
                     <option value="1 курс">1 курс</option>
@@ -44,9 +45,10 @@
                 </select>
             </div>
             
-            <div>
+            <div class="form-group">
                 <label for="birth-date">Дата рождения:</label>
                 <input type="date" name="DateBirTime" id="birth-date" required autocomplete="bday"/>
+                <span asp-validation-for="DateBirTime" class="text-danger"></span>
             </div>
             
             <div class="form-group">
@@ -67,7 +69,7 @@
             </div>
             
             <div class="form-group">
-                <label>Формат обучения</label>
+                <label for="lesson-format">Формат обучения</label>
                 <div class="lessonformat">
                     <select name="LessonFormat" id="lesson-format">
                         <option value="Очно">Очно</option>
@@ -78,17 +80,16 @@
             </div>
             
             <div class="form-group">
-                <label>Город обучения обучения</label>
+                <label align="center" for="city">Город обучения</label>
                 <div class="city">
                     <select name="City" id="city">
                         <option value="Сочи">Сочи</option>
                         <option value="Москва">Москва</option>
-                        <option value="Санкт-Питербург">Санкт-Питербург</option>
+                        <option value="Санкт-Петербург">Санкт-Петербург</option>
                         <option value="Казань">Казань</option>
                     </select>
                 </div>
             </div>
-            
         </div>
         
         <div class="form-group">
@@ -99,15 +100,10 @@
         <button class="form-button" type="submit">Send</button>
     </form>
     
-    <div id="result" class="result"></div>
-    
-    @if (Model.Message is not null)
-    {
-        <div class="result">
-            <h3>Данные анкеты</h3>
-            <p style="white-space: pre-line">@Model.Message</p>
-        </div>
-    }
+    <div id="result" class="result" style="display: none; margin-top: 20px;">
+        <h3>Данные получены сервером (Ответ AJAX):</h3>
+        <pre id="jsonOutput" style="background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto;"></pre>
+    </div>
     
     <script src="/js/AJAX.js"></script>
 </div>

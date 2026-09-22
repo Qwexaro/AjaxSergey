@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AjaxSergey.Extensions;
 using AjaxSergey.Validation;
+using System.Text.Json;
 
 namespace AjaxSergey.Pages;
 
@@ -34,8 +35,6 @@ public class IndexModel : PageModel
     
     [BindProperty]
     [Required(ErrorMessage = "Пожалуйста, укажите дату рождения")]
-    [BirthDate(maxAge: 120)]
-    [DataType(DataType.Date)]
     public required DateTime DateBirTime { get; set; }
 
     [BindProperty] 
@@ -43,6 +42,5 @@ public class IndexModel : PageModel
     
     public void OnGet() {  }
     
-    public IActionResult OnPost() => 
-        Content($"Анкета студента\nName:{Name},\nPhone:{Phone},\nEmail:{Email},\nSpeciality:{Speciality},\nCourse:{Course},\nDateBirTime:{DateBirTime},\nTech:{Tech.WriteList()}\nLessonFormat:{LessonFormat}\n,City:{City},\n\nMessage:{Message}");
+    public IActionResult OnPost() => Content(JsonSerializer.Serialize(this), "application/json");
 }
