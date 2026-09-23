@@ -34,61 +34,61 @@
                 <input type="radio" name="Speciality" value="Маркетолог" id="marketing"/>
                 <label for="marketing">Маркетинг</label>
             </div>
+        </div>
             
-            <div class="form-group">
-                <label for="courses">Курс: </label>
-                <select name="Course" id="courses">
-                    <option value="1 курс">1 курс</option>
-                    <option value="2 курс">2 курс</option>
-                    <option value="3 курс">3 курс</option>
-                    <option value="4 курс">4 курс</option>
+        <div class="form-group">
+            <label for="courses">Курс: </label>
+            <select name="Course" id="courses">
+                <option value="1 курс">1 курс</option>
+                <option value="2 курс">2 курс</option>
+                <option value="3 курс">3 курс</option>
+                <option value="4 курс">4 курс</option>
+            </select>
+        </div>
+            
+        <div class="form-group">
+            <label for="birth-date">Дата рождения:</label>
+            <input type="date" name="DateBirTime" id="birth-date" required autocomplete="bday"/>
+            <span asp-validation-for="DateBirTime" class="text-danger"></span>
+        </div>
+            
+        <div class="form-group">
+            <label>Технологии:</label>
+            <div class="speciality">
+                <input type="checkbox" name="Tech" value="HTML/CSS" id="html"/>
+                <label for="html">HTML/CSS</label>
+                <br>
+                <input type="checkbox" name="Tech" value="JS" id="js"/>
+                <label for="js">JS</label>
+                <br>
+                <input type="checkbox" name="Tech" value="CS" id="cs"/>
+                <label for="cs">C#</label>
+                <br>
+                <input type="checkbox" name="Tech" value="Python" id="py"/>
+                <label for="py">Python</label>
+            </div>
+        </div>
+            
+        <div class="form-group">
+            <label for="lesson-format">Формат обучения</label>
+            <div class="lessonformat">
+                <select name="LessonFormat" id="lesson-format">
+                    <option value="Очно">Очно</option>
+                    <option value="Удаленно">Удаленно</option>
+                    <option value="Заочно">Заочно</option>
                 </select>
             </div>
+        </div>
             
-            <div class="form-group">
-                <label for="birth-date">Дата рождения:</label>
-                <input type="date" name="DateBirTime" id="birth-date" required autocomplete="bday"/>
-                <span asp-validation-for="DateBirTime" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label>Технологии:</label>
-                <div class="speciality">
-                    <input type="checkbox" name="Tech" value="HTML/CSS" id="html"/>
-                    <label for="html">HTML/CSS</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="JS" id="js"/>
-                    <label for="js">JS</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="CS" id="cs"/>
-                    <label for="cs">C#</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="Python" id="py"/>
-                    <label for="py">Python</label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="lesson-format">Формат обучения</label>
-                <div class="lessonformat">
-                    <select name="LessonFormat" id="lesson-format">
-                        <option value="Очно">Очно</option>
-                        <option value="Удаленно">Удаленно</option>
-                        <option value="Заочно">Заочно</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label align="center" for="city">Город обучения</label>
-                <div class="city">
-                    <select name="City" id="city">
-                        <option value="Сочи">Сочи</option>
-                        <option value="Москва">Москва</option>
-                        <option value="Санкт-Петербург">Санкт-Петербург</option>
-                        <option value="Казань">Казань</option>
-                    </select>
-                </div>
+        <div class="form-group">
+            <label align="center" for="city">Город обучения</label>
+            <div class="city">
+                <select name="City" id="city">
+                    <option value="Сочи">Сочи</option>
+                    <option value="Москва">Москва</option>
+                    <option value="Санкт-Петербург">Санкт-Петербург</option>
+                    <option value="Казань">Казань</option>
+                </select>
             </div>
         </div>
         

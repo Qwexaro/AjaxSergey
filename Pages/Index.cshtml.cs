@@ -42,5 +42,17 @@ public class IndexModel : PageModel
     
     public void OnGet() {  }
     
-    public IActionResult OnPost() => Content(JsonSerializer.Serialize(this), "application/json");
+    public IActionResult OnPost() => Content(JsonSerializer.Serialize(new 
+    { 
+        Name, 
+        Phone, 
+        Email, 
+        Speciality, 
+        LessonFormat, 
+        Message, 
+        City, 
+        Course, 
+        DateBirTime, 
+        Tech 
+    }), "application/json");
 }
