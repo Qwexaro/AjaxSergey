@@ -145,33 +145,34 @@ public class IndexModel : PageModel
 ```
 
 ```index.cshtml
-@page
+﻿@page
 @model IndexModel
 
 <div class="form-container">
     <h1>Анкета студентов</h1>
-    <form method="post">
+    
+    <form method="post" id="studentForm">
         @Html.AntiForgeryToken()
         
         <div class="form-group">
             <label for="student-name">Имя фамилия:</label>
-            <input type="text" name="Name" id="student-name" placeholder="Введите имя" autocomplete="name"/>
+            <input type="text" name="Name" id="student-name" placeholder="Введите имя" autocomplete="name" required/>
         </div>
         
         <div class="form-group">
             <label for="student-phone">Номер телефона:</label>
-            <input type="tel" name="Phone" id="student-phone" placeholder="+7" required="required" autocomplete="tel"/>
+            <input type="tel" name="Phone" id="student-phone" placeholder="+7" required autocomplete="tel"/>
         </div>
         
         <div class="form-group">
             <label for="student-email">Email:</label>
-            <input type="email" name="Email" id="student-email" placeholder="email" autocomplete="email"/>
+            <input type="email" name="Email" id="student-email" placeholder="email" autocomplete="email" required/>
         </div>
         
         <div class="form-group">
             <label>Специальность:</label>
             <div class="speciality">
-                <input type="radio" name="Speciality" value="Программирование" id="dev"/>
+                <input type="radio" name="Speciality" value="Программирование" id="dev" checked/>
                 <label for="dev">Программирование</label>
                 <br>
                 <input type="radio" name="Speciality" value="Дизайнер" id="design"/>
@@ -180,62 +181,62 @@ public class IndexModel : PageModel
                 <input type="radio" name="Speciality" value="Маркетолог" id="marketing"/>
                 <label for="marketing">Маркетинг</label>
             </div>
+        </div>
             
-            <div>
-                <label for="courses">Курс: </label>
-                <select name="Course" id="courses">
-                    <option value="1 курс">1 курс</option>
-                    <option value="2 курс">2 курс</option>
-                    <option value="3 курс">3 курс</option>
-                    <option value="4 курс">4 курс</option>
+        <div class="form-group">
+            <label for="courses">Курс: </label>
+            <select name="Course" id="courses">
+                <option value="1 курс">1 курс</option>
+                <option value="2 курс">2 курс</option>
+                <option value="3 курс">3 курс</option>
+                <option value="4 курс">4 курс</option>
+            </select>
+        </div>
+            
+        <div class="form-group">
+            <label for="birth-date">Дата рождения:</label>
+            <input type="date" name="DateBirTime" id="birth-date" required autocomplete="bday"/>
+            <span asp-validation-for="DateBirTime" class="text-danger"></span>
+        </div>
+            
+        <div class="form-group">
+            <label>Технологии:</label>
+            <div class="speciality">
+                <input type="checkbox" name="Tech" value="HTML/CSS" id="html"/>
+                <label for="html">HTML/CSS</label>
+                <br>
+                <input type="checkbox" name="Tech" value="JS" id="js"/>
+                <label for="js">JS</label>
+                <br>
+                <input type="checkbox" name="Tech" value="CS" id="cs"/>
+                <label for="cs">C#</label>
+                <br>
+                <input type="checkbox" name="Tech" value="Python" id="py"/>
+                <label for="py">Python</label>
+            </div>
+        </div>
+            
+        <div class="form-group">
+            <label for="lesson-format">Формат обучения</label>
+            <div class="lessonformat">
+                <select name="LessonFormat" id="lesson-format">
+                    <option value="Очно">Очно</option>
+                    <option value="Удаленно">Удаленно</option>
+                    <option value="Заочно">Заочно</option>
                 </select>
             </div>
+        </div>
             
-            <div>
-                <label for="birth-date">Дата рождения:</label>
-                <input type="date" name="DateBirTime" id="birth-date" required autocomplete="bday"/>
+        <div class="form-group">
+            <label align="center" for="city">Город обучения</label>
+            <div class="city">
+                <select name="City" id="city">
+                    <option value="Сочи">Сочи</option>
+                    <option value="Москва">Москва</option>
+                    <option value="Санкт-Петербург">Санкт-Петербург</option>
+                    <option value="Казань">Казань</option>
+                </select>
             </div>
-            
-            <div class="form-group">
-                <label>Технологии:</label>
-                <div class="speciality">
-                    <input type="checkbox" name="Tech" value="HTML/CSS" id="html"/>
-                    <label for="html">HTML/CSS</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="JS" id="js"/>
-                    <label for="js">JS</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="CS" id="cs"/>
-                    <label for="cs">C#</label>
-                    <br>
-                    <input type="checkbox" name="Tech" value="Python" id="py"/>
-                    <label for="py">Python</label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Формат обучения</label>
-                <div class="lessonformat">
-                    <select name="LessonFormat" id="lesson-format">
-                        <option value="Очно">Очно</option>
-                        <option value="Удаленно">Удаленно</option>
-                        <option value="Заочно">Заочно</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Город обучения обучения</label>
-                <div class="city">
-                    <select name="City" id="city">
-                        <option value="Сочи">Сочи</option>
-                        <option value="Москва">Москва</option>
-                        <option value="Санкт-Питербург">Санкт-Питербург</option>
-                        <option value="Казань">Казань</option>
-                    </select>
-                </div>
-            </div>
-            
         </div>
         
         <div class="form-group">
@@ -246,15 +247,10 @@ public class IndexModel : PageModel
         <button class="form-button" type="submit">Send</button>
     </form>
     
-    <div id="result" class="result"></div>
-    
-    @if (Model.Message is not null)
-    {
-        <div class="result">
-            <h3>Данные анкеты</h3>
-            <p style="white-space: pre-line">@Model.Message</p>
-        </div>
-    }
+    <div id="result" class="result" style="display: none; margin-top: 20px;">
+        <h3>Данные получены сервером (Ответ AJAX):</h3>
+        <pre id="jsonOutput" style="background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto;"></pre>
+    </div>
     
     <script src="/js/AJAX.js"></script>
 </div>
