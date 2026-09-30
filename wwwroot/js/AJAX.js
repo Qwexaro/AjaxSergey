@@ -2,22 +2,26 @@ const form = document.querySelector('form');
 
 const button = form.querySelector('.form-button');
 
+const eraseButton = document.querySelector('.clear-button');
+
+const status = form.querySelector('#status');
+
 let isSubmitting = false;
 
 form.addEventListener('submit', async (event) => {
-    
+
     event.preventDefault();
 
     if (isSubmitting) return;
 
     isSubmitting = true;
-    
+
     button.disabled = true;
 
     setTimeout(() => {
 
         console.info("sending data. . .");
-    
+
     }, 2300);
 
     button.textContent = "Sending...";
@@ -56,7 +60,10 @@ form.addEventListener('submit', async (event) => {
 
                 resultBlock.style.display = 'block';
 
+
             }
+            
+            status.textContent = ""
 
         } else {
 
@@ -66,10 +73,12 @@ form.addEventListener('submit', async (event) => {
 
     } catch (error) {
 
+        status.textContent = "Не удалось отправить анкету!";
+
         console.error("Ошибка при отправке:", error);
 
     } finally {
-
+        
         isSubmitting = false;
 
         button.disabled = false;
@@ -78,3 +87,9 @@ form.addEventListener('submit', async (event) => {
 
     }
 });
+
+form.addEventListener('reset', async (event) => {
+    
+    document.querySelector('.result').style.display = 'none';
+    
+})
