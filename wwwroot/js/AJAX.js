@@ -85,6 +85,18 @@ form.addEventListener('submit', async (event) => {
     }
 });
 
+loadStudents = async () => {
+    
+    
+    
+}
+
+deleteStudent = async () => {
+    
+    
+    
+}
+
 form.addEventListener('reset', async (event) => {
     
     document.querySelector('.result').style.display = 'none';
