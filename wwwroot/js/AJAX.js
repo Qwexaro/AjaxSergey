@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 
 const button = form.querySelector('.form-button');
 
-const eraseButton = document.querySelector('.clear-button');
+/*const eraseButton = document.querySelector('.clear-button');*/
 
 const status = form.querySelector('#status');
 
@@ -59,11 +59,8 @@ form.addEventListener('submit', async (event) => {
                 jsonOutput.textContent = formattedJson;
 
                 resultBlock.style.display = 'block';
-
-
+                
             }
-            
-            status.textContent = ""
 
         } else {
 
