@@ -127,3 +127,20 @@ body {
   color: #555;
   line-height: 1.5;
 }
+
+.clear-button {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background: #0056b3;
+  color: white;
+}
