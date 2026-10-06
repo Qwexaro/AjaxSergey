@@ -1,104 +1,167 @@
 const form = document.querySelector('form');
 
-const button = form.querySelector('.form-button');
+const button = form?.querySelector('.form-button');
 
-/*const eraseButton = document.querySelector('.clear-button');*/
+const status = document.querySelector('#status');
 
-const status = form.querySelector('#status');
+const studentsList = document.querySelector('#students-list');
 
 let isSubmitting = false;
 
-form.addEventListener('submit', async (event) => {
+if (form) {
+    
+    form.addEventListener('submit', async (event) => {
+        
+        event.preventDefault();
+        
+        if (isSubmitting) return;
 
-    event.preventDefault();
+        isSubmitting = true;
+        
+        if (button) {
+            
+            button.disabled = true;
+            
+            button.textContent = "Sending...";
+        
+        }
 
-    if (isSubmitting) return;
+        try {
+            
+            const formData = new FormData(form);
+            
+            const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
 
-    isSubmitting = true;
+            const response = await fetch("", {
+            
+                method: 'POST',
+            
+                headers: { "RequestVerificationToken": tokenElement?.value || "" },
+            
+                body: formData
+            
+            });
 
-    button.disabled = true;
+            if (response.ok) {
+                
+                const htmlCard = await response.text();
 
-    setTimeout(() => {
+                if (studentsList) studentsList.insertAdjacentHTML('beforeend', htmlCard);
+                
+                form.reset();
+                
+                if (status) {
+                
+                    status.textContent = "Анкета успешно отправлена!";
+                
+                    status.style.color = "green";
+                
+                }
+                
+            } else {
+            
+                console.error("Сервер вернул ошибку:", response.status);
+            
+                if (status) {
+            
+                    status.textContent = `Ошибка сервера при отправке (Код: ${response.status})`;
+            
+                    status.style.color = "red";
+            
+                }
+            }
 
-        console.info("sending data. . .");
+        } catch (error) {
+            
+            console.error("Ошибка при отправке:", error);
+            
+            if (status) {
+            
+                status.textContent = "Не удалось отправить анкету!";
+            
+                status.style.color = "red";
+            
+            }
+            
+        } finally {
+            
+            isSubmitting = false;
+            
+            if (button) {
+                
+                button.disabled = false;
+                
+                button.textContent = "Send";
+            
+            }
+            
+        }
+    });
+    
+    form.addEventListener('reset', () => { if (status) status.textContent = ''; });
+    
+}
 
-    }, 2300);
 
-    button.textContent = "Sending...";
+const loadStudents = async () => {
+
+    if (!studentsList) return;
 
     try {
 
-        const formData = new FormData(form);
+        const response = await fetch("?handler=Students");
 
-        const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
+        if (!response.ok) throw Error("Ошибка подключения к студентам");
 
-        const response = await fetch("", {
+        studentsList.innerHTML = await response.text();
 
+    } catch (error) {
+
+        console.error("Ошибка загрузки студентов: ", error);
+
+        studentsList.innerHTML = `<div class="result">Не удалось загрузить список студентов</div>`;
+
+    }
+
+};
+
+const deleteStudent = async (id) => {
+    
+    if (!confirm("Вы уверены, что хотите удалить этого студента?")) return;
+
+    try {
+        
+        const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+
+        const response = await fetch(`?handler=DeleteStudent&id=${id}`, {
+        
             method: 'POST',
-
-            headers: {"RequestVerificationToken": tokenElement?.value || ""},
-
-            body: formData
-
+        
+            headers: { "RequestVerificationToken": tokenElement?.value || "" }
+        
         });
 
         if (response.ok) {
+            const cardToRemove = document.querySelector(`#student-${id}`);
 
-            const rawText = await response.text();
+            if (cardToRemove) {
 
-            const jsonObject = JSON.parse(rawText);
+                cardToRemove.remove();
 
-            const formattedJson = JSON.stringify(jsonObject, null, 4);
-
-            const resultBlock = document.querySelector('#result');
-
-            const jsonOutput = document.querySelector('#jsonOutput');
-
-            if (jsonOutput && resultBlock) {
-
-                jsonOutput.textContent = formattedJson;
-
-                resultBlock.style.display = 'block';
-                
             }
 
         } else {
 
-            console.error("Сервер вернул ошибку:", response.status);
+            alert("Не удалось удалить студента на сервере.");
 
         }
 
     } catch (error) {
 
-        status.textContent = "Не удалось отправить анкету!";
-
-        console.error("Ошибка при отправке:", error);
-
-    } finally {
-        
-        isSubmitting = false;
-
-        button.disabled = false;
-
-        button.textContent = "Send";
+        console.error("Ошибка при удалении студента:", error);
 
     }
-});
 
-loadStudents = async () => {
-    
-    
-    
-}
+};
 
-deleteStudent = async () => {
-    
-    
-    
-}
-
-form.addEventListener('reset', async (event) => {
-    
-    document.querySelector('.result').style.display = 'none';
-    
-})
+loadStudents().catch(err => { console.error("Глобальный сбой при загрузке студентов:", err); });

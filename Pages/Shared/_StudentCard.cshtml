@@ -1,0 +1,11 @@
+@model AjaxSergey.Models.Student
+
+<div class="student-card" id="student-@Model.Id">
+    <div class="student-card-header">
+        <div>
+            <h2>@Model.Name</h2>
+            <p>Курс: @Model.Course | @Model.Speciality</p>
+            <button type="button" onclick="deleteStudent(@Model.Id)">Удалить</button>
+        </div>
+    </div>
+</div>

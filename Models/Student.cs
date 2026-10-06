@@ -1,13 +1,14 @@
 namespace AjaxSergey.Models;
 
-public record Student(
+public record Student
+(
     int Id,
     string Name,
     string Phone,
     string Email,
     string Speciality,
     string LessonFormat,
-    string? Message,
+    string Message,
     string City,
     string Course,
     DateTime DateBirTime,

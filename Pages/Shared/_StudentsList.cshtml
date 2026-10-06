@@ -1,0 +1,6 @@
+@model List<AjaxSergey.Models.Student>
+
+@foreach (var student in Model)
+{
+    <partial name="_StudentCard" model="student"/>
+}
