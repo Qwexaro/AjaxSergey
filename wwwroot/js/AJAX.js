@@ -9,158 +9,158 @@ const studentsList = document.querySelector('#students-list');
 let isSubmitting = false;
 
 if (form) {
-    
-    form.addEventListener('submit', async (event) => {
-        
-        event.preventDefault();
-        
-        if (isSubmitting) return;
 
-        isSubmitting = true;
-        
-        if (button) {
-            
-            button.disabled = true;
-            
-            button.textContent = "Sending...";
-        
+  form.addEventListener('submit', async (event) => {
+
+    event.preventDefault();
+
+    if (isSubmitting) return;
+
+    isSubmitting = true;
+
+    if (button) {
+
+      button.disabled = true;
+
+      button.textContent = "Sending...";
+
+    }
+
+    try {
+
+      const formData = new FormData(form);
+
+      const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
+
+      const response = await fetch("", {
+
+        method: 'POST',
+
+        headers: { "RequestVerificationToken": tokenElement?.value || "" },
+
+        body: formData
+
+      });
+
+      if (response.ok) {
+
+        const htmlCard = await response.text();
+
+        if (studentsList) studentsList.insertAdjacentHTML('beforeend', htmlCard);
+
+        form.reset();
+
+        if (status) {
+
+          status.textContent = "Анкета успешно отправлена!";
+
+          status.style.color = "green";
+
         }
 
-        try {
-            
-            const formData = new FormData(form);
-            
-            const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
+      } else {
 
-            const response = await fetch("", {
-            
-                method: 'POST',
-            
-                headers: { "RequestVerificationToken": tokenElement?.value || "" },
-            
-                body: formData
-            
-            });
+        console.error("Сервер вернул ошибку:", response.status);
 
-            if (response.ok) {
-                
-                const htmlCard = await response.text();
+        if (status) {
 
-                if (studentsList) studentsList.insertAdjacentHTML('beforeend', htmlCard);
-                
-                form.reset();
-                
-                if (status) {
-                
-                    status.textContent = "Анкета успешно отправлена!";
-                
-                    status.style.color = "green";
-                
-                }
-                
-            } else {
-            
-                console.error("Сервер вернул ошибку:", response.status);
-            
-                if (status) {
-            
-                    status.textContent = `Ошибка сервера при отправке (Код: ${response.status})`;
-            
-                    status.style.color = "red";
-            
-                }
-            }
+          status.textContent = `Ошибка сервера при отправке (Код: ${response.status})`;
 
-        } catch (error) {
-            
-            console.error("Ошибка при отправке:", error);
-            
-            if (status) {
-            
-                status.textContent = "Не удалось отправить анкету!";
-            
-                status.style.color = "red";
-            
-            }
-            
-        } finally {
-            
-            isSubmitting = false;
-            
-            if (button) {
-                
-                button.disabled = false;
-                
-                button.textContent = "Send";
-            
-            }
-            
+          status.style.color = "red";
+
         }
-    });
-    
-    form.addEventListener('reset', () => { if (status) status.textContent = ''; });
-    
+      }
+
+    } catch (error) {
+
+      console.error("Ошибка при отправке:", error);
+
+      if (status) {
+
+        status.textContent = "Не удалось отправить анкету!";
+
+        status.style.color = "red";
+
+      }
+
+    } finally {
+
+      isSubmitting = false;
+
+      if (button) {
+
+        button.disabled = false;
+
+        button.textContent = "Send";
+
+      }
+
+    }
+  });
+
+  form.addEventListener('reset', () => { if (status) status.textContent = ''; });
+
 }
 
 
 const loadStudents = async () => {
 
-    if (!studentsList) return;
+  if (!studentsList) return;
 
-    try {
+  try {
 
-        const response = await fetch("?handler=Students");
+    const response = await fetch("?handler=Students");
 
-        if (!response.ok) throw Error("Ошибка подключения к студентам");
+    if (!response.ok) throw Error("Ошибка подключения к студентам");
 
-        studentsList.innerHTML = await response.text();
+    studentsList.innerHTML = await response.text();
 
-    } catch (error) {
+  } catch (error) {
 
-        console.error("Ошибка загрузки студентов: ", error);
+    console.error("Ошибка загрузки студентов: ", error);
 
-        studentsList.innerHTML = `<div class="result">Не удалось загрузить список студентов</div>`;
+    studentsList.innerHTML = `<div class="result">Не удалось загрузить список студентов</div>`;
 
-    }
+  }
 
 };
 
 const deleteStudent = async (id) => {
-    
-    if (!confirm("Вы уверены, что хотите удалить этого студента?")) return;
 
-    try {
-        
-        const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+  if (!confirm("Вы уверены, что хотите удалить этого студента?")) return;
 
-        const response = await fetch(`?handler=DeleteStudent&id=${id}`, {
-        
-            method: 'POST',
-        
-            headers: { "RequestVerificationToken": tokenElement?.value || "" }
-        
-        });
+  try {
 
-        if (response.ok) {
-            const cardToRemove = document.querySelector(`#student-${id}`);
+    const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
 
-            if (cardToRemove) {
+    const response = await fetch(`?handler=DeleteStudent&id=${id}`, {
 
-                cardToRemove.remove();
+      method: 'POST',
 
-            }
+      headers: { "RequestVerificationToken": tokenElement?.value || "" }
 
-        } else {
+    });
 
-            alert("Не удалось удалить студента на сервере.");
+    if (response.ok) {
+      const cardToRemove = document.querySelector(`#student-${id}`);
 
-        }
+      if (cardToRemove) {
 
-    } catch (error) {
+        cardToRemove.remove();
 
-        console.error("Ошибка при удалении студента:", error);
+      }
+
+    } else {
+
+      alert("Не удалось удалить студента на сервере.");
 
     }
+
+  } catch (error) {
+
+    console.error("Ошибка при удалении студента:", error);
+
+  }
 
 };
 
