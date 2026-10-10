@@ -1,4 +1,5 @@
-<img width="478" height="1040" alt="image" src="https://github.com/user-attachments/assets/d0800a65-2ee5-4032-a591-3f83fcc408e8" />
+<img width="1916" height="1051" alt="image" src="https://github.com/user-attachments/assets/74bea921-8b5c-4439-b58a-45b157b3dd47" />
+
 
 ```AJAX.js
 const form = document.querySelector('form');
