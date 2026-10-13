@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using AjaxSergey.Models;
+using AjaxSergey.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace AjaxSergey.Pages;
+namespace AjaxSergey.Models.ViewModels;
 
 public class IndexModel : PageModel
 {

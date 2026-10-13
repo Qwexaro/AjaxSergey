@@ -1,0 +1,1 @@
+export const form: HTMLFormElement = document.querySelector<HTMLFormElement>('form')!;

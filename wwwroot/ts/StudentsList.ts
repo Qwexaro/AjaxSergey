@@ -1,0 +1,1 @@
+export const studentsList: Element | null = document.querySelector('#students-list');

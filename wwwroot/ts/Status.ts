@@ -1,0 +1,1 @@
+export const status: HTMLElement | null = document.querySelector('#status');

@@ -1,16 +1,13 @@
-const form = document.querySelector('form');
+import {status} from "./Status";
+import {form} from "./Form";
+import {button} from "./Button";
+import {studentsList} from "./StudentsList";
 
-const button = form?.querySelector('.form-button');
-
-const status = document.querySelector('#status');
-
-const studentsList = document.querySelector('#students-list');
-
-let isSubmitting = false;
+let isSubmitting: boolean = false;
 
 if (form) {
 
-  form.addEventListener('submit', async (event) => {
+  form.addEventListener('submit', async (event: SubmitEvent): Promise<void> => {
 
     event.preventDefault();
 
@@ -28,9 +25,9 @@ if (form) {
 
     try {
 
-      const formData = new FormData(form);
+      let formData: FormData = new FormData(form);
 
-      const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
+      const tokenElement: HTMLInputElement = form.querySelector<HTMLInputElement>('input[name="__RequestVerificationToken"]')!;
 
       const response = await fetch("", {
 
@@ -125,15 +122,15 @@ const loadStudents = async () => {
 
 };
 
-const deleteStudent = async (id) => {
+export const deleteStudent: (id: number) => Promise<void> = async (id: number): Promise<void> => {
 
   if (!confirm("Вы уверены, что хотите удалить этого студента?")) return;
 
   try {
 
-    const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+    const tokenElement: HTMLFormElement | null = document.querySelector('input[name="__RequestVerificationToken"]');
 
-    const response = await fetch(`?handler=DeleteStudent&id=${id}`, {
+    const response: Response = await fetch(`?handler=DeleteStudent&id=${id}`, {
 
       method: 'POST',
 
@@ -142,7 +139,7 @@ const deleteStudent = async (id) => {
     });
 
     if (response.ok) {
-      const cardToRemove = document.querySelector(`#student-${id}`);
+      const cardToRemove: Element | null = document.querySelector(`#student-${id}`);
 
       if (cardToRemove) {
 

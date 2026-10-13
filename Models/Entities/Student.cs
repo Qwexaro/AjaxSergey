@@ -1,4 +1,4 @@
-namespace AjaxSergey.Models;
+namespace AjaxSergey.Models.Entities;
 
 public record Student(
     int Id,
