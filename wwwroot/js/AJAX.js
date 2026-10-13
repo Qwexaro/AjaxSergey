@@ -5,7 +5,7 @@ export const initApp = () => {
     const studentsList = document.querySelector('#students-list');
     let isSubmitting = false;
     if (form && !form.dataset.initialized) {
-        form.dataset.initialized = "true"; // Защита от повторного навешивания событий
+        form.dataset.initialized = "true";
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             if (isSubmitting)
@@ -18,7 +18,6 @@ export const initApp = () => {
             try {
                 let formData = new FormData(form);
                 const tokenElement = form.querySelector('input[name="__RequestVerificationToken"]');
-                // Указываем явный MVC-маршрут контроллера, вместо пустого ""
                 const response = await fetch("/CreateResume/Submit", {
                     method: 'POST',
                     headers: { "RequestVerificationToken": tokenElement?.value || "" },
@@ -60,12 +59,10 @@ export const initApp = () => {
         form.addEventListener('reset', () => { if (status)
             status.textContent = ''; });
     }
-    // Загрузка студентов внутри общего контекста
     const loadStudents = async () => {
         if (!studentsList)
             return;
         try {
-            // ИСПРАВЛЕНО: Маршрут на MVC-действие контроллера вместо ?handler=Students
             const response = await fetch("/CreateResume/GetStudents");
             if (!response.ok)
                 throw Error("Ошибка подключения к студентам");
@@ -78,13 +75,11 @@ export const initApp = () => {
     };
     loadStudents().catch(err => console.error(err));
 };
-// Функция удаления
 export const deleteStudent = async (id) => {
     if (!confirm("Вы уверены, что хотите удалить этого студента?"))
         return;
     try {
         const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
-        // ИСПРАВЛЕНО: Маршрут на MVC-действие удаления
         const response = await fetch(`/CreateResume/Delete/${id}`, {
             method: 'POST',
             headers: { "RequestVerificationToken": tokenElement?.value || "" }
@@ -102,6 +97,5 @@ export const deleteStudent = async (id) => {
         console.error("Ошибка при удалении:", error);
     }
 };
-// Пробрасываем удаление в глобальную область window для инлайнового onclick в HTML
 window.deleteStudent = deleteStudent;
 //# sourceMappingURL=AJAX.js.map
