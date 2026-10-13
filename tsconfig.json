@@ -1,17 +1,14 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "outDir": "./wwwroot/js",
-    "sourceMap": true
+    "target": "es2022",
+    "module": "es2020",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "sourceMap": true,
+    "rootDir": "wwwroot/ts",
+    "outDir": "wwwroot/js"
   },
   "include": [
-    "./wwwroot/js/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "bin",
-    "obj"
+    "wwwroot/ts/**/*"
   ]
 }
